@@ -110,8 +110,8 @@ const Sidebar = () => {
               {/* <!-- Create Member --> */}
               <li>
                 <NavLink
-                  url="/dashboard/create"
-                  active={location.pathname === "/dashboard/create"}
+                  url="/dashboard/members/create"
+                  active={location.pathname === "/dashboard/members/create"}
                 >
                   <svg
                     className="-mt-1 fill-current"
