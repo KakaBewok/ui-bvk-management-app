@@ -1,15 +1,11 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App.tsx";
-import { GlobalContextProvider } from "./providers/global-context.tsx";
-import { ToastContainer } from "react-toastify";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <GlobalContextProvider>
-      <ToastContainer autoClose={2000} />
-      <App />
-    </GlobalContextProvider>
-  </StrictMode>
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );
