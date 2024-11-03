@@ -31,14 +31,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// export default interface Member {
-//   id: string;
-//   name: string;
-//   position: string;
-//   pictureUrl: string;
-//   superior?: Member;
-// }
-
 const formSchema = z.object({
   name: z
     .string()
@@ -62,8 +54,6 @@ type MemberFormValues = z.infer<typeof formSchema>;
 
 export const MemberForm = ({ members }: { members: Member[] }) => {
   const [pictureFile, setPictureFile] = useState<File | undefined>();
-  //   const [qrisImageFile, setQrisImageFile] = useState<File | undefined>();
-  //   const bankLogoInputRef = useRef<HTMLInputElement | null>(null);
   const pictureInputRef = useRef<HTMLInputElement | null>(null);
   const { loading, setLoading } = useGlobalContext();
 
@@ -81,50 +71,6 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
       superior: "",
     },
   });
-
-  //   useEffect(() => {
-  //     const convertUrlsToFiles = async () => {
-  //       const filesToProcess: FilesToProcessType[] = [
-  //         {
-  //           key: "bank_logo",
-  //           ref: bankLogoInputRef,
-  //           setFile: setBankLogoFile,
-  //         },
-  //         {
-  //           key: "qris_image",
-  //           ref: qrisImageInputRef,
-  //           setFile: setQrisImageFile,
-  //         },
-  //       ];
-
-  //       if (initialData?.bank_logo || initialData?.qris_image) {
-  //         for (const fileData of filesToProcess) {
-  //           const imageUrl = initialData?.[fileData.key];
-  //           if (imageUrl) {
-  //             const randomId = Math.floor(Math.random() * 90000) + 10000;
-  //             const filePath = `${
-  //               import.meta.env.VITE_APP_URL
-  //             }/storage/${imageUrl}`;
-  //             const file = await urlToFile(
-  //               filePath,
-  //               `${fileData.key}-${randomId}.jpg`,
-  //               "image/jpeg"
-  //             );
-  //             fileData.setFile(file);
-
-  //             const dt = new DataTransfer();
-  //             dt.items.add(file);
-  //             if (fileData.ref?.current) {
-  //               fileData.ref.current.files = dt.files;
-  //             }
-  //             form.setValue(fileData.key, file);
-  //           }
-  //         }
-  //       }
-  //     };
-
-  //     convertUrlsToFiles();
-  //   }, [initialData, form]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -323,7 +269,7 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
                 )}
               />
 
-              {/* Preview Images */}
+              {/* Preview image */}
               {pictureFile && (
                 <div className="relative overflow-hidden border rounded-md shadow-md dark:border-gray-200 border-slate-300 w-52 h-52">
                   <img

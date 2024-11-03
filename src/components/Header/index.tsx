@@ -55,7 +55,7 @@ const Header = () => {
 
         <div className="flex gap-5">
           <DarkModeSwitcher className="block lg:hidden" />
-          <div className="flex items-center justify-center p-1 rounded-full bg-slate-300">
+          <div className="flex items-center justify-center p-1 rounded-full bg-slate-300 dark:bg-slate-600">
             <UserButton />
           </div>
         </div>

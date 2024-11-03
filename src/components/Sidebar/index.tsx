@@ -2,7 +2,7 @@ import NavLink from "@/components/Sidebar/NavLink";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import Logo from "../../../public/bvk-logo.png";
+import Logo from "../../assets/images/bvk-logo.png";
 
 const Sidebar = () => {
   const { sidebarOpen, setSidebarOpen } = useGlobalContext();

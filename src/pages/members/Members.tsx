@@ -3,16 +3,9 @@ import { MemberClient } from "./components/client";
 import { MemberColumn } from "./components/columns";
 import Member from "@/types/Member";
 
-// export default interface Member {
-//   id: string;
-//   name: string;
-//   position: string;
-//   pictureUrl: string;
-//   superior?: Member;
-// }
-
 const MembersPage = () => {
   //TODO: Hit all member by axious
+
   //dummy data:
   const members: Member[] = [
     {
@@ -58,13 +51,6 @@ const MembersPage = () => {
       superior: "",
     },
   ];
-
-  // export type MemberColumn = {
-  //   id: string;
-  //   name: string;
-  //   position: string;
-  //   superior?: string;
-  // };
 
   const formattedMembers: MemberColumn[] = members.map((item) => ({
     id: item.id,

@@ -9,7 +9,7 @@ export const CellAction = ({ data }: { data: MemberColumn }) => {
   //   const { loading, setLoading } = useGlobalContext();
 
   //TODO: Hit details member
-  // const handleShowDetailsPaymentMethod = (
+  // const handleShowDetailsMember = (
   //     e: React.MouseEvent<HTMLButtonElement>
   // ) => {
   //     e.stopPropagation();
@@ -31,7 +31,7 @@ export const CellAction = ({ data }: { data: MemberColumn }) => {
           //   disabled={loading}
           variant="ghost"
           className="h-8 p-0 w-9 bg-sky-500 hover:bg-sky-600"
-          //   onClick={(e) => handleShowDetailsPaymentMethod(e)}
+          //   onClick={(e) => handleShowDetailsMember(e)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

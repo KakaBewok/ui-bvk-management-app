@@ -1,10 +1,9 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/DataTable";
 import { Heading } from "@/components/Heading";
-// import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { Plus } from "lucide-react";
-// import { useState } from "react";
-// import { toast } from "react-toastify";
 import { MemberColumn, columns } from "./columns";
 import { useNavigate } from "react-router-dom";
 
@@ -14,20 +13,6 @@ interface MemberClientProps {
 
 export const MemberClient: React.FC<MemberClientProps> = ({ data }) => {
   const navigate = useNavigate();
-  //   const { loading, setLoading } = useGlobalContext();
-
-  // TODO: Hit api create member by axios
-  //   const handleCreatePaymentMethod = () => {
-  //     setLoading(true);
-  //     router.get(
-  //       route("admin.payment_method.create"),
-  //       {},
-  //       {
-  //         onFinish: () => setLoading(false),
-  //       }
-  //     );
-  //   };
-
   return (
     <>
       <div className="flex items-center justify-between">

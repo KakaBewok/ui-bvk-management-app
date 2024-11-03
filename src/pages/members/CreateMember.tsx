@@ -3,6 +3,8 @@ import { MemberForm } from "./components/member-form";
 import AuthenticatedLayout from "@/layouts/AuthenticatedLayout";
 
 const CreatePage = () => {
+  //TODO: hit all members
+
   //dummy data:
   const members: Member[] = [
     {

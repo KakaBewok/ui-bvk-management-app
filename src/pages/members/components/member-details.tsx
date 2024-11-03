@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Heading } from "@/components/heading";
+import { Heading } from "@/components/Heading";
 // import { useGlobalContext } from "@/hooks/useGlobalContext";
-import ImageNotFound from "../../../../public/image-not-found.jpg";
+import ImageNotFound from "./../../../assets/images/image-not-found.jpg";
 import Member from "@/types/Member";
 
 // export default interface Member {
