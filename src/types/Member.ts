@@ -3,5 +3,5 @@ export default interface Member {
   name: string;
   position: string;
   pictureUrl: string;
-  superior?: string;
+  superior?: Member;
 }

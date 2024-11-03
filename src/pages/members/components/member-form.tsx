@@ -93,6 +93,10 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
     setLoading(true);
 
     try {
+      // const payload = {
+      //   ...data,
+      //   superior: data.superior ? { id: data.superior } : null,
+      // };
       await createMember(data);
       toast.success(toastMessage, {
         position: "top-center",
