@@ -1,6 +1,6 @@
 import MainLayout from "@/layouts/MainLayout";
 import CreateMemberPage from "@/pages/members/CreateMember";
-import MemberDetailsPage from "@/pages/MemberDetails";
+import MemberDetailsPage from "@/pages/members/MemberDetails";
 import MembersPage from "@/pages/members/Members";
 import SignInPage from "@/pages/sign-in";
 import SignUpPage from "@/pages/sign-up";

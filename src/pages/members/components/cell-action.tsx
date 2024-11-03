@@ -1,37 +1,17 @@
 import { Button } from "@/components/ui/button";
-// import { useGlobalContext } from "@/hooks/useGlobalContext";
-// import { useState } from "react";
-// import { toast } from "react-toastify";
 import { MemberColumn } from "./columns";
+import { useNavigate } from "react-router-dom";
 
 export const CellAction = ({ data }: { data: MemberColumn }) => {
-  console.log(data);
-  //   const { loading, setLoading } = useGlobalContext();
-
-  //TODO: Hit details member
-  // const handleShowDetailsMember = (
-  //     e: React.MouseEvent<HTMLButtonElement>
-  // ) => {
-  //     e.stopPropagation();
-
-  //     setLoading(true);
-  //     router.get(
-  //         route("admin.payment_method.show", data.id),
-  //         {},
-  //         {
-  //             onFinish: () => setLoading(false),
-  //         }
-  //     );
-  // };
+  const navigate = useNavigate();
 
   return (
     <div>
       <div className="flex items-center">
         <Button
-          //   disabled={loading}
           variant="ghost"
           className="h-8 p-0 w-9 bg-sky-500 hover:bg-sky-600"
-          //   onClick={(e) => handleShowDetailsMember(e)}
+          onClick={() => navigate(`/dashboard/members/${data.id}`)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/Heading";
-// import { useGlobalContext } from "@/hooks/useGlobalContext";
-import ImageNotFound from "./../../../assets/images/image-not-found.jpg";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
+import ImageNotFound from "./../../assets/images/image-not-found.jpg";
 import Member from "@/types/Member";
+import { getMemberDetails } from "@/api/api";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 // export default interface Member {
 //   id: string;
@@ -12,8 +15,26 @@ import Member from "@/types/Member";
 //   superior?: Member;
 // }
 
-const MemberDetails = ({ member }: { member: Member }) => {
-  //   const { loading, setLoading } = useGlobalContext();
+const MemberDetailsPage = () => {
+  const { memberId } = useParams<{ memberId: string }>();
+  const { setLoading } = useGlobalContext();
+  const [member, setMembers] = useState<Member | null>(null);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchMemberDetail = async () => {
+      try {
+        const data = await getMemberDetails(memberId ?? "");
+        setMembers(data);
+      } catch (error) {
+        console.error("Error fetching member details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMemberDetail();
+  }, []);
 
   return (
     <>
@@ -33,14 +54,14 @@ const MemberDetails = ({ member }: { member: Member }) => {
       <div className="flex flex-col justify-between rounded-lg md:flex-row bg-slate-50 dark:bg-slate-600">
         <div className="flex-1 p-6 space-y-6 md:p-7">
           <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-50">
-            {member.name}
+            {member?.name}
           </h1>
           <div>
             <h3 className="font-semibold text-gray-800 dark:text-gray-50">
               Position:{" "}
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-300">
-              {member.position}
+              {member?.position}
             </p>
           </div>
           <div>
@@ -48,18 +69,18 @@ const MemberDetails = ({ member }: { member: Member }) => {
               Superior:{" "}
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-300">
-              {member.superior ? member.superior : "-"}
+              {member?.superior ? member.superior : "-"}
             </p>
           </div>
         </div>
         <div className="flex flex-col items-center justify-center flex-1 w-full gap-5 p-5 md:flex-row">
           <div className="w-full h-full overflow-hidden border border-gray-200 rounded-sm shadow-sm dark:border-gray-400">
-            {member.pictureUrl ? (
+            {member?.pictureUrl ? (
               <img
                 src={`${import.meta.env.VITE_APP_URL}/storage/${
                   member.pictureUrl
                 }`}
-                alt="Bank Logo"
+                alt="Profile picture"
                 className="object-cover w-full h-full transition-transform duration-200 transform hover:scale-105"
               />
             ) : (
@@ -76,4 +97,4 @@ const MemberDetails = ({ member }: { member: Member }) => {
   );
 };
 
-export default MemberDetails;
+export default MemberDetailsPage;

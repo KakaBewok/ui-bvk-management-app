@@ -21,7 +21,6 @@ import Member from "@/types/Member";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-// import { toast } from "react-toastify";
 import * as z from "zod";
 import {
   Select,
@@ -30,6 +29,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { createMember } from "@/api/api";
+import { toast } from "react-toastify";
 
 const formSchema = z.object({
   name: z
@@ -50,7 +51,7 @@ const formSchema = z.object({
   superior: z.string().optional(),
 });
 
-type MemberFormValues = z.infer<typeof formSchema>;
+export type MemberFormValues = z.infer<typeof formSchema>;
 
 export const MemberForm = ({ members }: { members: Member[] }) => {
   const [pictureFile, setPictureFile] = useState<File | undefined>();
@@ -59,7 +60,7 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
 
   const title = "Create member";
   const description = "Add a new member";
-  //   const toastMessage = "Member created.";
+  const toastMessage = "Member created.";
   const action = "Create";
 
   const form = useForm<MemberFormValues>({
@@ -88,40 +89,19 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
     }
   };
 
-  const onSubmit = (data: MemberFormValues) => {
+  const onSubmit = async (data: MemberFormValues) => {
     setLoading(true);
 
-    console.log(data);
-
-    // const clearForm = () => {
-    //   form.reset();
-    //   setPictureFile(undefined);
-    //   if (pictureInputRef.current) {
-    //     pictureInputRef.current.value = "";
-    //   }
-    // };
-
-    // const handleSuccess = () => {
-    //   clearForm();
-    //   router.visit(route("admin.payment_method.index"));
-    //   setTimeout(() => {
-    //     toast.success(toastMessage, {
-    //       position: "top-center",
-    //     });
-    //   }, 1000);
-    // };
-
-    // const handleError = (error: any) => {
-    //   console.log("An error occurred: ", error);
-    // };
-
-    // const handleFinish = () => setLoading(false);
-
-    // router.post(route("admin.payment_method.store"), data, {
-    //   onSuccess: handleSuccess,
-    //   onError: handleError,
-    //   onFinish: handleFinish,
-    // });
+    try {
+      await createMember(data);
+      toast.success(toastMessage, {
+        position: "top-center",
+      });
+    } catch (error) {
+      console.error("Failed to create member:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
