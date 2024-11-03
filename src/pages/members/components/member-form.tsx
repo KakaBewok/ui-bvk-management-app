@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/select";
 import { createMember } from "@/api/api";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   name: z
@@ -48,12 +49,17 @@ const formSchema = z.object({
       message: `Picture is more than ${MAX_FILE_SIZE}KB`,
     })
     .optional(),
-  superior: z.string().optional(),
+  superior: z
+    .object({
+      id: z.string().uuid(),
+    })
+    .optional(),
 });
 
 export type MemberFormValues = z.infer<typeof formSchema>;
 
 export const MemberForm = ({ members }: { members: Member[] }) => {
+  const navigate = useNavigate();
   const [pictureFile, setPictureFile] = useState<File | undefined>();
   const pictureInputRef = useRef<HTMLInputElement | null>(null);
   const { loading, setLoading } = useGlobalContext();
@@ -69,7 +75,7 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
       name: "",
       position: "",
       pictureUrl: undefined,
-      superior: "",
+      superior: undefined,
     },
   });
 
@@ -92,15 +98,21 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
   const onSubmit = async (data: MemberFormValues) => {
     setLoading(true);
 
+    const clearForm = () => {
+      form.reset();
+      setPictureFile(undefined);
+      if (pictureInputRef.current) {
+        pictureInputRef.current.value = "";
+      }
+    };
+
     try {
-      // const payload = {
-      //   ...data,
-      //   superior: data.superior ? { id: data.superior } : null,
-      // };
       await createMember(data);
+      clearForm();
       toast.success(toastMessage, {
         position: "top-center",
       });
+      navigate("/dashboard/members");
     } catch (error) {
       console.error("Failed to create member:", error);
     } finally {
@@ -193,19 +205,30 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
                   </FormLabel>
                   <Select
                     disabled={loading}
-                    onValueChange={field.onChange}
-                    value={field.value?.toString() || ""}
+                    onValueChange={(value) => {
+                      if (value === "-") {
+                        field.onChange();
+                      } else {
+                        field.onChange({ id: value });
+                      }
+                    }}
+                    value={field.value ? field.value.id : ""}
                     defaultValue={field.value?.toString() || ""}
                   >
                     <FormControl className="dark:bg-slate-700">
                       <SelectTrigger className="w-full">
                         <SelectValue
                           defaultValue={field.value?.toString() || ""}
-                          placeholder="Select a superior"
+                          placeholder={"Select a superior"}
                         />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
+                      <SelectItem value={"-"}>
+                        <span className="text-sm text-gray-500">
+                          No superior
+                        </span>
+                      </SelectItem>
                       {members.map((member: Member) => (
                         <SelectItem
                           key={member.id.toString()}
