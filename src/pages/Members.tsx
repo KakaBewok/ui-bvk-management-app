@@ -1,8 +1,12 @@
+import AuthenticatedLayout from "@/layouts/AuthenticatedLayout";
+
 const MembersPage = () => {
   return (
-    <div>
-      <h1>Members page</h1>
-    </div>
+    <AuthenticatedLayout>
+      <div>
+        <h1>Members page</h1>
+      </div>
+    </AuthenticatedLayout>
   );
 };
 

@@ -1,5 +1,6 @@
-import DashboardLayout from "@/layouts/dashboard-layout";
-import RootLayout from "@/layouts/root-layout";
+import MainLayout from "@/layouts/MainLayout";
+import CreateMemberPage from "@/pages/CreateMember";
+import MemberDetailsPage from "@/pages/MemberDetails";
 import MembersPage from "@/pages/Members";
 import SignInPage from "@/pages/sign-in";
 import SignUpPage from "@/pages/sign-up";
@@ -7,20 +8,14 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
-    element: <RootLayout />,
+    element: <MainLayout />,
     children: [
       { path: "/", element: <Navigate to="/sign-in" replace /> },
       { path: "/sign-in/*", element: <SignInPage /> },
       { path: "/sign-up/*", element: <SignUpPage /> },
-      {
-        path: "dashboard",
-        element: <DashboardLayout />,
-        children: [
-          { path: "members", element: <MembersPage /> },
-          { path: "members/:memberId", element: <MembersPage /> },
-          { path: "members", element: <MembersPage /> },
-        ],
-      },
+      { path: "/dashboard/members", element: <MembersPage /> },
+      { path: "/dashboard/members/:memberId", element: <MemberDetailsPage /> },
+      { path: "/dashboard/members/create", element: <CreateMemberPage /> },
     ],
   },
 ]);
