@@ -9,52 +9,6 @@ const CreatePage = () => {
   const { setLoading } = useGlobalContext();
   const [members, setMembers] = useState<Member[]>([]);
 
-  //dummy data:
-  // const members: Member[] = [
-  //   {
-  //     id: "222a",
-  //     name: "Noprizal",
-  //     position: "Fullstack Developer",
-  //     pictureUrl: "kjdhkhkdhfkhf.jpg",
-  //     superior: "111b",
-  //   },
-  //   {
-  //     id: "222c",
-  //     name: "Noprizal",
-  //     position: "Fullstack Developer",
-  //     pictureUrl: "kjdhkhkdhfkhf.jpg",
-  //     superior: "111b",
-  //   },
-  //   {
-  //     id: "222d",
-  //     name: "Noprizal",
-  //     position: "Fullstack Developer",
-  //     pictureUrl: "kjdhkhkdhfkhf.jpg",
-  //     superior: "111b",
-  //   },
-  //   {
-  //     id: "222e",
-  //     name: "Noprizal",
-  //     position: "Fullstack Developer",
-  //     pictureUrl: "kjdhkhkdhfkhf.jpg",
-  //     superior: "111b",
-  //   },
-  //   {
-  //     id: "222f",
-  //     name: "Noprizal",
-  //     position: "Fullstack Developer",
-  //     pictureUrl: "kjdhkhkdhfkhf.jpg",
-  //     superior: "111b",
-  //   },
-  //   {
-  //     id: "111b",
-  //     name: "Muhammad Malik",
-  //     position: "Lead Programmer",
-  //     pictureUrl: "kjdhkhkdhfdddf.jpg",
-  //     superior: "",
-  //   },
-  // ];
-
   useEffect(() => {
     setLoading(true);
     const fetchMembers = async () => {

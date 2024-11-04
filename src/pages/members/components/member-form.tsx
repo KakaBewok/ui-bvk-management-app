@@ -40,20 +40,15 @@ const formSchema = z.object({
   position: z
     .string()
     .min(3, { message: "Position must contain at least 3 character(s)" }),
-  pictureUrl: z
+  picture: z
     .instanceof(File)
     .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), {
       message: "Picture must be jpg, jpeg, png or webp formats",
     })
     .refine((file) => file.size <= MAX_FILE_SIZE * 1024, {
       message: `Picture is more than ${MAX_FILE_SIZE}KB`,
-    })
-    .optional(),
-  superior: z
-    .object({
-      id: z.string().uuid(),
-    })
-    .optional(),
+    }),
+  superior: z.string().optional(),
 });
 
 export type MemberFormValues = z.infer<typeof formSchema>;
@@ -74,8 +69,8 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
     defaultValues: {
       name: "",
       position: "",
-      pictureUrl: undefined,
-      superior: undefined,
+      picture: undefined,
+      superior: "",
     },
   });
 
@@ -83,7 +78,7 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
     if (e.target.files) {
       const file = e.target.files[0];
       setPictureFile(file);
-      form.setValue("pictureUrl", file);
+      form.setValue("picture", file);
     }
   };
 
@@ -91,7 +86,6 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
     if (pictureInputRef.current) {
       setPictureFile(undefined);
       pictureInputRef.current.value = "";
-      form.setValue("pictureUrl", undefined);
     }
   };
 
@@ -175,15 +169,65 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
                       fieldState.error ? "text-red-500" : "dark:text-gray-300"
                     }
                   >
-                    Poition <span className="text-red-500">*</span>
+                    Position
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      className="dark:bg-slate-700"
+                    <Select
                       disabled={loading}
-                      placeholder="Software Engineer"
-                      {...field}
-                    />
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl className="dark:bg-slate-700">
+                        <SelectTrigger className="w-full">
+                          <SelectValue
+                            defaultValue={field.value}
+                            placeholder="Select a position"
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="Chief Executive Officer">
+                          Chief Executive Officer
+                        </SelectItem>
+                        <SelectItem value="Chief Technology Officer">
+                          Chief Technology Officer
+                        </SelectItem>
+                        <SelectItem value="Chief Operating Officer">
+                          Chief Operating Officer
+                        </SelectItem>
+
+                        <SelectItem value="Fullstack Developer">
+                          Fullstack Developer
+                        </SelectItem>
+                        <SelectItem value="Mobile Developer">
+                          Mobile Developer
+                        </SelectItem>
+                        <SelectItem value="DevOps Engineer">
+                          DevOps Engineer
+                        </SelectItem>
+
+                        <SelectItem value="Project Manager">
+                          Project Manager
+                        </SelectItem>
+                        <SelectItem value="Frontend Developer">
+                          Frontend Developer
+                        </SelectItem>
+                        <SelectItem value="Backend Developer">
+                          Backend Developer
+                        </SelectItem>
+
+                        <SelectItem value="Technical Lead">
+                          Technical Lead
+                        </SelectItem>
+                        <SelectItem value="Quality Assurance Engineer">
+                          Quality Assurance Engineer
+                        </SelectItem>
+                        <SelectItem value="Automation Tester">
+                          Automation Tester
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage className="dark:text-red-500" />
                 </FormItem>
@@ -209,16 +253,16 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
                       if (value === "-") {
                         field.onChange();
                       } else {
-                        field.onChange({ id: value });
+                        field.onChange(value);
                       }
                     }}
-                    value={field.value ? field.value.id : ""}
-                    defaultValue={field.value?.toString() || ""}
+                    value={field.value}
+                    defaultValue={field.value?.toString()}
                   >
                     <FormControl className="dark:bg-slate-700">
                       <SelectTrigger className="w-full">
                         <SelectValue
-                          defaultValue={field.value?.toString() || ""}
+                          defaultValue={field.value?.toString()}
                           placeholder={"Select a superior"}
                         />
                       </SelectTrigger>
@@ -248,7 +292,7 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
             <div className="flex flex-col gap-8">
               <FormField
                 control={form.control}
-                name="pictureUrl"
+                name="picture"
                 render={({ fieldState }) => (
                   <FormItem>
                     <FormLabel
@@ -256,7 +300,7 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
                         fieldState.error ? "text-red-500" : "dark:text-gray-300"
                       }
                     >
-                      Profile picture
+                      Profile picture <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -265,6 +309,7 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
                         type="file"
                         accept="image/jpeg, image/png, image/jpg, image/webp"
                         onChange={(e) => handleFileChange(e)}
+                        required
                       />
                     </FormControl>
                     <FormDescription className="text-xs">

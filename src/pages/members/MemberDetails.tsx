@@ -8,14 +8,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AuthenticatedLayout from "@/layouts/AuthenticatedLayout";
 
-// export default interface Member {
-//   id: string;
-//   name: string;
-//   position: string;
-//   pictureUrl: string;
-//   superior?: Member;
-// }
-
 const MemberDetailsPage = () => {
   const { memberId } = useParams<{ memberId: string }>();
   const { setLoading } = useGlobalContext();
@@ -54,7 +46,7 @@ const MemberDetailsPage = () => {
           </div>
         </div>
         <div className="flex flex-col justify-between rounded-lg md:flex-row bg-slate-50 dark:bg-slate-600">
-          <div className="flex-1 p-6 space-y-6 md:p-7">
+          <div className="flex-1 p-6 mx-0 space-y-6 md:mx-10 lg:mx-16 md:p-7">
             <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-50">
               {member?.name}
             </h1>
@@ -74,24 +66,26 @@ const MemberDetailsPage = () => {
                 {member?.superior?.name ?? "-"}
               </p>
             </div>
+            <div>
+              <h3 className="font-semibold text-gray-800 dark:text-gray-50">
+                Superior position:{" "}
+              </h3>
+              <p className="text-sm text-gray-500 dark:text-gray-300">
+                {member?.superior?.position ?? "-"}
+              </p>
+            </div>
           </div>
           <div className="flex flex-col items-center justify-center flex-1 w-full gap-5 p-5 md:flex-row">
-            <div className="w-1/2 overflow-hidden border border-gray-200 rounded-full shadow-sm h-1/2 dark:border-gray-400">
-              {member?.pictureUrl ? (
-                <img
-                  src={`${import.meta.env.VITE_APP_URL}/storage/${
-                    member.pictureUrl
-                  }`}
-                  alt="Profile picture"
-                  className="object-cover w-full h-full transition-transform duration-200 transform hover:scale-105"
-                />
-              ) : (
-                <img
-                  src={ImageNotFound}
-                  alt="No image uploaded"
-                  className="object-cover w-full h-full transition-transform duration-200 transform hover:scale-105"
-                />
-              )}
+            <div className="overflow-hidden border-2 border-gray-300 rounded-full shadow-md w-52 h-52 md:w-60 md:h-60 dark:border-gray-500">
+              <img
+                src={
+                  member?.pictureUrl
+                    ? `${import.meta.env.VITE_API_URL}/${member.pictureUrl}`
+                    : ImageNotFound
+                }
+                alt="Profile picture"
+                className="object-cover w-full h-full transition-transform duration-200 transform hover:scale-105"
+              />
             </div>
           </div>
         </div>
