@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/Heading";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
-import ImageNotFound from "./../../assets/images/image-not-found.jpg";
 import Member from "@/types/Member";
 import { getMemberDetails } from "@/api/api";
 import { useEffect, useState } from "react";
@@ -78,11 +77,7 @@ const MemberDetailsPage = () => {
           <div className="flex flex-col items-center justify-center flex-1 w-full gap-5 p-5 md:flex-row">
             <div className="overflow-hidden border-2 border-gray-300 rounded-full shadow-md w-52 h-52 md:w-60 md:h-60 dark:border-gray-500">
               <img
-                src={
-                  member?.pictureUrl
-                    ? `${import.meta.env.VITE_API_URL}/${member.pictureUrl}`
-                    : ImageNotFound
-                }
+                src={`${import.meta.env.VITE_API_URL}/${member?.pictureUrl}`}
                 alt="Profile picture"
                 className="object-cover w-full h-full transition-transform duration-200 transform hover:scale-105"
               />
