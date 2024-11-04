@@ -258,10 +258,6 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
                     >
                       Profile picture
                     </FormLabel>
-                    <FormDescription>
-                      Max. {MAX_FILE_SIZE}
-                      KB (jpg, jpeg, png, webp only).
-                    </FormDescription>
                     <FormControl>
                       <Input
                         className="w-full dark:bg-slate-700"
@@ -271,6 +267,10 @@ export const MemberForm = ({ members }: { members: Member[] }) => {
                         onChange={(e) => handleFileChange(e)}
                       />
                     </FormControl>
+                    <FormDescription className="text-xs">
+                      Max. {MAX_FILE_SIZE}
+                      KB (jpg, jpeg, png, webp only).
+                    </FormDescription>
                     <FormMessage className="dark:text-red-500" />
                   </FormItem>
                 )}
